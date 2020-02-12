@@ -1,6 +1,7 @@
 # Create class
-# Initialize local variables
-# mistakes = 0
+# define reader for mistakes variable
+# Initialize local variables(mistakes = 0)
+# @mistakes = mistakes
 
 # Variable for hangman with no mistakes
 # Variable for hangman with 1 mistake
@@ -12,8 +13,10 @@
 
 # define setter for mistakes variable
 
-# Override to_s
-# returns a different variable for the hangman depending on the value
-# of mistakes variable
+# define display_status
+	# returns a different string depending on the number of mistakes
 
-# define private accessor for mistakes variable
+# Override to_s
+	# Return mistakes as a string value
+
+# define private writer for mistakes variable

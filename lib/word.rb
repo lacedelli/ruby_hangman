@@ -3,10 +3,10 @@
 # Class start
 	# Define attr readers word, guesses, hidden_word
 
-	# initialize values
-	# word = ""
-	# guesses = [] 
-	# hidden_word = []
+	# initialize values(word = "", guesses = [], hidden_word = [])
+	# word = word
+	# guesses = guesses 
+	# hidden_word = hidden_word 
 
 	# Def select word
 		# Open word database file
@@ -27,10 +27,13 @@
 		# if guess is not in word
 			# return flag for bad guess
 
-	# def to_s()
+	# def to_hash()
 		# return a hash with the selected word
 		# the guesses
 		# and the final state of the hidden word
+
+	# def to_s()
+		# return a string with the selected word, the guesses, and the hidden word
 
 	# Private
 	# Define attr writers word, guesses, hidden_word

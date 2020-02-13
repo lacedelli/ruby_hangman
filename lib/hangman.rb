@@ -1,4 +1,3 @@
-# Create class
 class Hangman
 	attr_reader :mistakes
 
@@ -57,12 +56,19 @@ class Hangman
    
 		end
 
-# define setter for mistakes variable
+	def set_mistakes(number)
+		unless number.is_a?(Integer)
+			raise "Input not an Integer value"
+		end
+		
+		self.mistakes = number
+		nil
+	end
 
 # define display_status
-	def draw_hangman(number)
+	def draw_hangman()
 
-		case number
+		case @mistakes
 		when 0
 			@zero_mistakes
 		when 1
@@ -79,10 +85,12 @@ class Hangman
 			@six_mistakes
 		end
 	end
-	# returns a different string depending on the number of mistakes
 
-# Override to_s
-	# Return mistakes as a string value
+	def to_s()
+		self.mistakes.to_s()
+	end
+	
+	private
+	attr_writer :mistakes
 
-# define private writer for mistakes variable
 end

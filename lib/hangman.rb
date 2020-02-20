@@ -65,6 +65,10 @@ class Hangman
 		nil
 	end
 
+	def increment_mistakes()
+		self.mistakes+= 1
+	end
+
 	def draw_hangman()
 
 		case @mistakes

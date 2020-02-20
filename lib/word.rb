@@ -8,10 +8,15 @@ class Word
 		@hidden_word = hidden_word
 	end
 
-	# Def select word
 	def select_word()
-		# Open word database file
-		# select word of desired length
+		words_file = File.open(WORDS, "r")
+		words_collection = words_file.read().split()
+
+		# iterate over the array, if the word meets the desired length
+		appropriate_words = words_collection.select {|word| word.length >= 5 && word.length <= 12}
+
+		return appropriate_words
+		# Add it to another array, then select a random word out of the secord arr
 		# Assign selected word to local word var
 		hide_word()
 	end
@@ -47,14 +52,14 @@ class Word
 
 	# def to_hash()
 	def to_hash()
-		# return a hash with the selected word
-		# the guesses
-		# and the final state of the hidden word
-		{ word:@word, guesses:@guesses, hidden_word:@hidden_word}
+		{word:@word, guesses:@guesses, hidden_word:@hidden_word}
 	end
 
 	# def to_s()
+	def to_s()
 		# return a string with the selected word, the guesses, and the hidden word
+		"Selected word: \"#{@word},\" guesses: \"#{@guesses.join(", ")},\" hidden word: \"#{@hidden_word.join("")}.\""
+	end
 
 	private
 	attr_writer :word, :guesses, :hidden_word

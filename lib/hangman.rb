@@ -65,7 +65,6 @@ class Hangman
 		nil
 	end
 
-# define display_status
 	def draw_hangman()
 
 		case @mistakes

@@ -9,16 +9,32 @@ class Word
 	end
 
 	def select_word()
-		words_file = File.open(WORDS, "r")
-		words_collection = words_file.read().split()
+		if @word.empty? 
+			words_file = File.open(WORDS, "r")
+			words_collection = words_file.read().split()
 
-		# iterate over the array, if the word meets the desired length
-		appropriate_words = words_collection.select {|word| word.length >= 5 && word.length <= 12}
+			appropriate_words = words_collection.select do |word|
+				word.length >= 5 && word.length <= 12
+			end
 
-		return appropriate_words
-		# Add it to another array, then select a random word out of the secord arr
-		# Assign selected word to local word var
-		hide_word()
+			rand = Random.new()
+			selected_word = appropriate_words[rand.rand(0..appropriate_words.length())]
+			@word = selected_word.downcase()
+			hide_word()
+		else
+			raise "Word already selected"
+		end
+		nil
+	end
+
+	def valid_guess?(guess)
+		if guess.length > 1
+			false
+		elsif /\d/.match?(guess)
+			false
+		else
+			true
+		end
 	end
 
 	def guessed_already?(guess)
@@ -32,7 +48,7 @@ class Word
 	# def make_guess(guess)
 	def make_guess(guess)
 
-		@guesses.append(guess)
+		@guesses.append(guess.downcase())
 		word_array = @word.chars()
 
 		if @word.include?(guess)

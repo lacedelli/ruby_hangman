@@ -89,6 +89,12 @@ class Hangman
 		end
 	end
 
+	def max_mistakes?()
+		if self.mistakes => 6
+			true
+		end
+	end
+
 	def to_s()
 		self.mistakes.to_s()
 	end

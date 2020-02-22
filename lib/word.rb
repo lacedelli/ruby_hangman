@@ -65,15 +65,17 @@ class Word
 		end
 	end
 
+	def word_guessed?()
+		if @hidden_word.join("") == @word
+			true
+		end
+	end
 
-	# def to_hash()
 	def to_hash()
 		{word:@word, guesses:@guesses, hidden_word:@hidden_word}
 	end
 
-	# def to_s()
 	def to_s()
-		# return a string with the selected word, the guesses, and the hidden word
 		"Selected word: \"#{@word},\" guesses: \"#{@guesses.join(", ")},\" hidden word: \"#{@hidden_word.join("")}.\""
 	end
 

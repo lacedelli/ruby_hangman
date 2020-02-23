@@ -32,6 +32,8 @@ class Word
 			false
 		elsif /\d/.match?(guess)
 			false
+		elsif guess.empty?()
+			false
 		else
 			true
 		end

@@ -40,7 +40,7 @@ class Hangman
 		_______|"
 		
 		@five_mistakes = "
-			 |---|
+		   |---|
 		   O   |
 		  /|\\  |
 		  /    |
@@ -90,7 +90,7 @@ class Hangman
 	end
 
 	def max_mistakes?()
-		if self.mistakes => 6
+		if self.mistakes >= 6
 			true
 		end
 	end

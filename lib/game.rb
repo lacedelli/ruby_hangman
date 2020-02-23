@@ -1,26 +1,35 @@
-# Import all necessary local libraries
-# Import json library
+require_relative "word.rb"
+require_relative "hangman.rb"
+
+require "json"
 
 # define load method
 	# get values and load pump them into respective classes
 
 # TODO define deletor method
+def delete_saved_game()
+end
 
 # Define saving method
 def save_game(hangman, word)
 	hangman_number = hangman.to_s()
 	word_hash = word.to_hash()
+	
+	puts hangman_number
+	puts word_hash
+
 	# override save.json file with gathered data
 	puts "Successfully saved data!"
 end
 
 # Define method for playing a match of the game
 def game_match(hangman, word)
+	guess = ""
 	loop do
 		puts hangman.draw_hangman()
 
 		puts "Your progress in guessing the word is:"
-		puts word.hidden_word.join("")
+		puts word.hidden_word.join(" ")
 
 		puts "You have guessed the following letters:"
 		puts word.guesses.join(", ")
@@ -40,32 +49,47 @@ def game_match(hangman, word)
 
 		result = word.make_guess(guess)
 		if result
-			break
 		else
 			hangman.increment_mistakes()
-			break
 		end
 
 		
 		if word.word_guessed?()
 			# TODO get code from file deletor method
+			puts "That's correct! The word was #{word.word}!"
 			break
 		end
 		
-		if word.max_mistakes?
+		if hangman.max_mistakes?
 			# TODO get code from file deletor method
+			puts hangman.draw_hangman()
+			puts "Too bad! You lost, the word was #{word.word}!"
 			break
 		end
 	end
 end
 
 # Initiate game loop
-	# If save exists
-		# Call load method
-	# Else
-		# Create a new hangman instance
+def start_game()
 
-	# Create a new word instance
-	# Call round method
-	# Ask player if they want to play a new round
-	# If answer == No Break
+	loop do
+		if File.file?("saved_game.json")
+			# TODO  Call load method else
+		else
+			hangman = Hangman.new()
+			word = Word.new()
+			word.select_word()
+		end
+
+		game_match(hangman, word)
+
+		puts "Would you like to play another round? (\"n\" to quit)"
+		answer = gets().chomp().downcase()
+		if answer == "no" or answer == "n"
+			break
+		end
+
+		save_game(hangman, word)
+		break
+	end
+end

@@ -3,8 +3,11 @@ require_relative "hangman.rb"
 
 require "json"
 
-# define load method
-	# get values and load pump them into respective classes
+SAVE_GAME = "saved_game.json"
+
+def load_json(hangman, word)
+	# todo get values and load pump them into respective classes
+end
 
 # TODO define deletor method
 def delete_saved_game()
@@ -14,9 +17,16 @@ end
 def save_game(hangman, word)
 	hangman_number = hangman.to_s()
 	word_hash = word.to_hash()
+
+	json = JSON.dump ({
+		hangman:hangman_number,
+		word:{word:word_hash[:word],
+					guesses:word_hash[:guesses],
+					hidden_word:word_hash[:hidden_word]}
+	})
 	
-	puts hangman_number
-	puts word_hash
+	puts json
+	# TODO code to write local file save_game.json
 
 	# override save.json file with gathered data
 	puts "Successfully saved data!"
@@ -42,7 +52,7 @@ def game_match(hangman, word)
 			if guess == "save"
 				save_game(hangman, word)
 				puts "Thanks for playing! See you when you return!"
-				# TODO find out how to exit the program
+				exit(0)
 			end
 		break if word.valid_guess?(guess) and !word.guessed_already?(guess)
 		end
@@ -73,8 +83,8 @@ end
 def start_game()
 
 	loop do
-		if File.file?("saved_game.json")
-			# TODO  Call load method else
+		if File.exist?(SAVE_GAME)
+			# TODO  Call load method 
 		else
 			hangman = Hangman.new()
 			word = Word.new()

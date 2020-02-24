@@ -25,8 +25,10 @@ def save_game(hangman, word)
 					hidden_word:word_hash[:hidden_word]}
 	})
 	
-	puts json
 	# TODO code to write local file save_game.json
+	save_file = File.open(SAVE_GAME, "w")
+	save_file.puts json
+	save_file.close()
 
 	# override save.json file with gathered data
 	puts "Successfully saved data!"
@@ -83,7 +85,7 @@ end
 def start_game()
 
 	loop do
-		if File.exist?(SAVE_GAME)
+		if File.exists?(SAVE_GAME) and !File.empty?(SAVE_GAME)
 			# TODO  Call load method 
 		else
 			hangman = Hangman.new()

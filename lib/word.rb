@@ -28,6 +28,7 @@ class Word
 	end
 
 	def valid_guess?(guess)
+		# Could've used a better regex solution for this
 		if guess.length > 1
 			false
 		elsif /\d/.match?(guess)

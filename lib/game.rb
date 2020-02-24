@@ -5,12 +5,17 @@ require "json"
 
 SAVE_GAME = "saved_game.json"
 
-def load_json(hangman, word)
-	# todo get values and load pump them into respective classes
+def load_json()
+	file = File.open(SAVE_GAME, "r")
+	json = file.read()
+	file.close()
+	hash = JSON.load(json)
+	hash
 end
 
-# TODO define deletor method
 def delete_saved_game()
+	file = File.open(SAVE_GAME, "w")
+	file.close()
 end
 
 # Define saving method
@@ -25,9 +30,8 @@ def save_game(hangman, word)
 					hidden_word:word_hash[:hidden_word]}
 	})
 	
-	# TODO code to write local file save_game.json
 	save_file = File.open(SAVE_GAME, "w")
-	save_file.puts json
+	save_file.puts(json)
 	save_file.close()
 
 	# override save.json file with gathered data
@@ -67,13 +71,13 @@ def game_match(hangman, word)
 
 		
 		if word.word_guessed?()
-			# TODO get code from file deletor method
+			delete_saved_game()
 			puts "That's correct! The word was #{word.word}!"
 			break
 		end
 		
 		if hangman.max_mistakes?
-			# TODO get code from file deletor method
+			delete_saved_game()
 			puts hangman.draw_hangman()
 			puts "Too bad! You lost, the word was #{word.word}!"
 			break
@@ -86,7 +90,10 @@ def start_game()
 
 	loop do
 		if File.exists?(SAVE_GAME) and !File.empty?(SAVE_GAME)
-			# TODO  Call load method 
+			hash = load_json()
+			w_hash = hash["word"]
+			word = Word.new(w_hash["word"], w_hash["guesses"], w_hash["hidden_word"])
+			hangman = Hangman.new(hash["hangman"].to_i())
 		else
 			hangman = Hangman.new()
 			word = Word.new()
@@ -101,7 +108,5 @@ def start_game()
 			break
 		end
 
-		save_game(hangman, word)
-		break
 	end
 end
